@@ -1,0 +1,10 @@
+Flask
+gunicorn
+flask_sqlalchemy
+torch==2.7.1
+torchvision==0.18.1
+opencv-python
+Pillow
+matplotlib
+numpy
+werkzeug
