@@ -510,5 +510,6 @@ def get_recent_activity():
 
     return jsonify(activity_data)
 
-if __name__ == '__main__':
-    app.run(debug=True) 
+# if __name__ == '__main__':
+#     app.run(debug=True) 
+pass
