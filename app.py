@@ -7,10 +7,11 @@ from flask import (
     flash,
     session,
     send_file,
+    jsonify
 )
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
-from datetime import datetime
+from datetime import datetime, timedelta
 import torch
 import torchvision
 from torchvision import transforms, models
@@ -33,7 +34,7 @@ app = Flask(__name__)
 
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.config["SECRET_KEY"] = "False"
+app.config["SECRET_KEY"] = "your-secret-key"
 db = SQLAlchemy(app)
 
 
@@ -48,12 +49,21 @@ class User(db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    
+    videos = db.relationship('Video', backref='user', lazy=True)
 
-
+class Video(db.Model):
+    __tablename__ = "videos"
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    filename = db.Column(db.String(200), nullable=False)
+    is_deepfake = db.Column(db.Boolean, nullable=False)
+    confidence = db.Column(db.Float, nullable=False)
+    category = db.Column(db.String(50))  # For threat categorization
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
 
 with app.app_context():
-    db.create_all()
+    db.create_all();
+
 # -----------------------------   functions   -----------------------------------------------------
 
 # -----------------------------   Routes   -----------------------------------------------------
@@ -226,12 +236,33 @@ def predict_page():
 
     final_prediction, avg_confidence = split_and_predict(model, video_file, sequence_length=sequence_length)
 
-    if avg_confidence < 40:  # Lowered confidence threshold
+    # Determine prediction and category
+    if avg_confidence < 40:
         prediction = "UNCERTAIN"
+        is_deepfake = None
     elif final_prediction == 0:
-        prediction = "REAL" if avg_confidence > 60 else "UNCERTAIN"
+        prediction = "REAL" if avg_confidence > 60 else "FAKE"
+        is_deepfake = False if avg_confidence > 60 else True
     else:
-        prediction = "FAKE" if avg_confidence > 60 else "UNCERTAIN"
+        prediction = "REAL" if avg_confidence > 60 else "FAKE"
+        is_deepfake = True if avg_confidence > 60 else False
+
+    # Save video analysis results
+    if "user" in session:
+        try:
+            new_video = Video(
+                user_id=session["user"],
+                filename=os.path.basename(video_file),
+                is_deepfake=is_deepfake if is_deepfake is not None else False,
+                confidence=avg_confidence,
+                category='identity_theft'  # You might want to add logic to determine category
+            )
+            db.session.add(new_video)
+            db.session.commit()
+        except Exception as e:
+            db.session.rollback()
+            print(f"Error saving video: {e}")
+            # Handle the error appropriately
 
     return render_template('predict.html', prediction=prediction, confidence=round(avg_confidence, 1))
 
@@ -295,24 +326,28 @@ def signup_post():
 
     if not username or not email or not password1 or not password2:
             flash("Please enter your details")
-            return redirect(url_for("signup_sponsor"))
+            return redirect(url_for("signup"))
 
     if password1 != password2:
             flash("Passwords do not match")
-            return redirect(url_for("signup_sponsor"))
+            return redirect(url_for("signup"))
 
     user = User.query.filter_by(username=username).first()
-
     if user:
             flash("Username already exists")
-            return redirect(url_for("signup_sponsor"))
+            return redirect(url_for("signup"))
+
+    # Check if email already exists
+    existing_email = User.query.filter_by(email=email).first()
+    if existing_email:
+            flash("Email already exists")
+            return redirect(url_for("signup"))
 
     password_hash = generate_password_hash(password1)
 
     new_user = User(email=email, username=username, password=password_hash)
     db.session.add(new_user)
     db.session.commit()
-
 
     return redirect(url_for("login"))
 
@@ -350,6 +385,123 @@ def login_post():
 def logout():
     session.pop("user", None)
     return redirect("login")
+
+@app.route('/api/chart-data')
+def get_chart_data():
+    if "user" not in session:
+        return jsonify({
+            'totalVideos': 0,
+            'deepfakeCount': 0,
+            'detectionRates': [],
+            'threatCategories': [0, 0, 0, 0]
+        })
+
+    user_id = session["user"]
+    
+    # Get user's videos
+    user_videos = Video.query.filter_by(user_id=user_id).all()
+    total_videos = len(user_videos)
+    deepfake_count = sum(1 for video in user_videos if video.is_deepfake)
+
+    # Calculate detection rates over the last 6 months
+    now = datetime.utcnow()
+    detection_rates = []
+    for i in range(6):
+        month_start = now.replace(day=1) - timedelta(days=30 * i)
+        month_end = month_start.replace(day=1) + timedelta(days=32)
+        month_videos = Video.query.filter(
+            Video.user_id == user_id,
+            Video.created_at.between(month_start, month_end)
+        ).all()
+        if month_videos:
+            accuracy = sum(1 for v in month_videos if v.confidence > 60) / len(month_videos) * 100
+            detection_rates.insert(0, accuracy)
+        else:
+            detection_rates.insert(0, 0)
+
+    # Get threat categories
+    threat_categories = [
+        Video.query.filter_by(user_id=user_id, category='identity_theft', is_deepfake=True).count(),
+        Video.query.filter_by(user_id=user_id, category='misinformation', is_deepfake=True).count(),
+        Video.query.filter_by(user_id=user_id, category='political', is_deepfake=True).count(),
+        Video.query.filter_by(user_id=user_id, category='entertainment', is_deepfake=True).count()
+    ]
+
+    return jsonify({
+        'totalVideos': total_videos,
+        'deepfakeCount': deepfake_count,
+        'detectionRates': detection_rates,
+        'threatCategories': threat_categories
+    })
+
+@app.route('/certificate/<int:video_id>')
+def show_certificate(video_id):
+    if "user" not in session:
+        return redirect(url_for("login"))
+        
+    # Get the video from database
+    video = Video.query.get_or_404(video_id)
+    
+    # Ensure the video belongs to the logged-in user
+    if video.user_id != session["user"]:
+        flash("Access denied")
+        return redirect(url_for("profile"))
+    
+    # Get the user information
+    user = User.query.get(video.user_id)
+    
+    # Format the timestamp
+    formatted_date = video.created_at.strftime("%B %d, %Y at %H:%M:%S UTC")
+    
+    # Determine verification status and class
+    if video.confidence < 40:
+        status = "INCONCLUSIVE"
+        status_class = "text-yellow-500"
+    elif video.is_deepfake:
+        status = "DEEPFAKE DETECTED"
+        status_class = "text-red-500"
+    else:
+        status = "AUTHENTIC VIDEO"
+        status_class = "text-green-500"
+    
+    # Generate certificate details
+    certificate_data = {
+        'video_name': video.filename,
+        'status': status,
+        'status_class': status_class,
+        'confidence': round(video.confidence, 2),
+        'analysis_date': formatted_date,
+        'user_email': user.email,
+        'category': video.category if video.category else 'Not Specified',
+        'verification_id': f"VID-{video.id:06d}"  # Format: VID-000001
+    }
+    
+    return render_template('certificate.html', cert=certificate_data)
+
+@app.route('/api/recent-activity')
+def get_recent_activity():
+    if "user" not in session:
+        return jsonify([])
+
+    user_id = session["user"]
+    
+    # Get user's recent videos (last 5)
+    recent_videos = Video.query.filter_by(user_id=user_id)\
+        .order_by(Video.created_at.desc())\
+        .limit(5)\
+        .all()
+
+    activity_data = []
+    for video in recent_videos:
+        activity_data.append({
+            'filename': video.filename,
+            'time': video.created_at.strftime('%Y-%m-%d %H:%M'),
+            'result': 'Deepfake' if video.is_deepfake else 'Authentic',
+            'confidence': round(video.confidence, 1),
+            'type': video.category if video.category else 'N/A'
+        })
+
+    return jsonify(activity_data)
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -143,9 +143,9 @@
 
     <script>
         // Set dynamic values based on confidence
-        const confidence = {{ confidence }};  // Set this variable from server-side templating
-        const prediction = '{{ prediction }}';  // Set this variable from server-side templating
-        const unique_hash_id = '{{ unique_hash_id }}';  // Set this variable from server-side templating
+        const confidence = parseFloat("{{ confidence }}");  // Convert to number
+        const prediction = "{{ prediction }}";  // String value
+        const unique_hash_id = "{{ unique_hash_id }}";  // String value
 
         window.onload = function() {
             const currentDate = new Date();

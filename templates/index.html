@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deepfake Detection</title>
+    <title>Deepfake Detection Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-      <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script>
         tailwind.config = {
@@ -44,7 +41,7 @@
     <nav class="fixed top-0 w-full bg-black/70 backdrop-blur-md z-50">
         <div class="container mx-auto flex justify-between items-center p-4">
             <div class="flex items-center space-x-4">
-                <img src="/api/placeholder/50/50" alt="Logo" class="h-10 w-10 rounded-full">
+                <img src="/static/logo.png" alt="Logo" class="h-10 w-10 rounded-full">
                 <h1 class="text-2xl font-bold text-deepfake-primary animate-fade-in">Deepfake Detection</h1>
             </div>
             <div class="flex items-center space-x-6">
@@ -57,249 +54,805 @@
                 <a href="#faqs" class="hover:text-deepfake-secondary transition">
                     <i class="fas fa-question-circle mr-2"></i>FAQs
                 </a>
-                <a href={{url_for('profile')}} class="hover:text-deepfake-secondary transition">
+                <a href="templates/profile.html" class="hover:text-deepfake-secondary transition">
                     <i class="fas fa-user-circle mr-2"></i>Profile
                 </a>
             </div>
         </div>
     </nav>
 
-    <!-- Home Section -->
-    <section id="home" class="container mx-auto mt-24 p-6 text-center">
-        <h2 class="text-5xl font-bold mb-6 text-deepfake-primary animate-fade-in">
-            <i class="fas fa-shield-alt mr-3"></i>Deepfake Detection
+    <!-- Steps Section -->
+    <section class="container mx-auto px-4 py-16 pt-24">
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold mb-4 text-white animate-fade-in">
+                Discover the Power of Our Products
         </h2>
-        <p class="text-xl mb-10 max-w-2xl mx-auto text-gray-300 animate-fade-in">
-            Advanced AI Technology to Protect Digital Authenticity and Integrity
-        </p>
+            <p class="text-gray-300 max-w-3xl mx-auto">
+                Our advanced deepfake detection system provides comprehensive analysis and verification of video content, ensuring authenticity and trust in digital media.
+            </p>
+        </div>
 
-        <div class="grid md:grid-cols-3 gap-8 mt-12">
-            <div class="bg-gray-800/50 p-6 rounded-lg hover:scale-105 transition transform animate-fade-in">
-                <i class="fas fa-upload text-4xl mb-4 text-deepfake-secondary"></i>
-                <h3 class="text-2xl mb-2">Upload Video</h3>
-                <p class="text-gray-400 mb-4">Easily upload your video for analysis</p>
-                <a href={{url_for('validate')}} class="inline-block bg-deepfake-primary text-white px-6 py-3 rounded-lg hover:bg-deepfake-secondary transition">
-                    <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Video
-                </a>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            <!-- Step 1 -->
+            <div class="bg-gray-800/30 p-8 rounded-lg backdrop-blur-sm animate-fade-in hover:bg-gray-800/40 transition-all duration-300">
+                <div class="flex items-start space-x-4">
+                    <div class="text-6xl font-bold text-deepfake-primary opacity-50">01</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Upload Video</h3>
+                        <p class="text-gray-300">Users can upload the video file they want to verify for authenticity.</p>
             </div>
-            <div class="bg-gray-800/50 p-6 rounded-lg hover:scale-105 transition transform animate-fade-in">
-                <i class="fas fa-robot text-4xl mb-4 text-deepfake-secondary"></i>
-                <h3 class="text-2xl mb-2">AI Analysis</h3>
-                <p class="text-gray-400">Advanced AI examines video content</p>
-                <button
-  type="button"
-  class="btn btn-primary"
-  data-bs-toggle="modal"
-  data-bs-target="#modal123"
->
-  View Complete Info
-</button>
-                
+                </div>
             </div>
-            <div class="bg-gray-800/50 p-6 rounded-lg hover:scale-105 transition transform animate-fade-in">
-                <i class="fas fa-file-alt text-4xl mb-4 text-deepfake-secondary"></i>
-                <h3 class="text-2xl mb-2">Detailed Results</h3>
-                <p class="text-gray-400">Comprehensive deepfake detection report</p>
+
+            <!-- Step 2 -->
+            <div class="bg-deepfake-primary/10 p-8 rounded-lg backdrop-blur-sm animate-fade-in hover:bg-deepfake-primary/20 transition-all duration-300">
+                <div class="flex items-start space-x-4">
+                    <div class="text-6xl font-bold text-deepfake-primary opacity-50">02</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Deep Fake Detection</h3>
+                        <p class="text-gray-300">Our pre-trained model analyzes the uploaded video for audio-visual inconsistencies that may indicate manipulation.</p>
+            </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="bg-gray-800/30 p-8 rounded-lg backdrop-blur-sm animate-fade-in hover:bg-gray-800/40 transition-all duration-300">
+                <div class="flex items-start space-x-4">
+                    <div class="text-6xl font-bold text-deepfake-primary opacity-50">03</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Receive Authenticity Certificate</h3>
+                        <p class="text-gray-300">Upon completion of the analysis, users will receive an authenticity certificate confirming the video's originality.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="bg-deepfake-primary/10 p-8 rounded-lg backdrop-blur-sm animate-fade-in hover:bg-deepfake-primary/20 transition-all duration-300">
+                <div class="flex items-start space-x-4">
+                    <div class="text-6xl font-bold text-deepfake-primary opacity-50">04</div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-2 text-white">Enhanced Trust</h3>
+                        <p class="text-gray-300">The system enhances trust in digital content by providing a reliable method to detect deep fakes.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Dashboard Section -->
-    <section id="dashboard" class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl font-bold mb-12 text-center text-blue-400 animate-fade-in">
-            <i class="fas fa-chart-pie mr-3"></i>Deepfake Detection Dashboard
+    <section id="dashboard" class="container mx-auto px-4 pt-24 pb-16">
+        <h2 class="text-4xl font-bold mb-8 text-center text-blue-400 animate-fade-in">
+            <i class="fas fa-chart-line mr-3"></i>Deepfake Analytics Dashboard
         </h2>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Deepfake Detection Rates -->
-            <div class="bg-gray-800/70 p-6 rounded-lg shadow-xl animate-fade-in">
-                <h3 class="text-2xl font-semibold mb-4 text-green-400">
-                    <i class="fas fa-chart-line mr-2"></i>Detection Rates
+        <!-- Upload Section -->
+        <div class="bg-gray-800/50 p-8 rounded-lg mb-12 animate-fade-in">
+            <div class="text-center">
+                <h3 class="text-2xl font-bold mb-4 text-deepfake-primary">
+                    <i class="fas fa-cloud-upload-alt mr-2"></i>Upload Video for Analysis
                 </h3>
-                <canvas id="detectionRatesChart"></canvas>
-            </div>
-
-            <!-- Video Analysis Summary -->
-            <div class="bg-gray-800/70 p-6 rounded-lg shadow-xl animate-fade-in">
-                <h3 class="text-2xl font-semibold mb-4 text-blue-400">
-                    <i class="fas fa-video mr-2"></i>Video Analysis
-                </h3>
-                <div class="space-y-4">
-                    <div class="flex justify-between border-b border-gray-700 pb-2">
-                        <span>Total Videos Analyzed</span>
-                        <span class="font-bold text-green-400">5,243</span>
-                    </div>
-                    <div class="flex justify-between border-b border-gray-700 pb-2">
-                        <span>Deepfake Detected</span>
-                        <span class="font-bold text-red-400">463</span>
-                    </div>
-                    <div class="flex justify-between">
-                        <span>Authenticity Rate</span>
-                        <span class="font-bold text-blue-400">91.2%</span>
+                <p class="text-gray-300 mb-6">Drag and drop your video file or click to browse</p>
+                
+                <div class="max-w-2xl mx-auto">
+                    <div class="border-2 border-dashed border-deepfake-secondary rounded-lg p-8 mb-4 hover:border-deepfake-primary transition-colors duration-300">
+                        <div class="text-center">
+                            <i class="fas fa-video text-4xl text-deepfake-secondary mb-4"></i>
+                            <p class="text-gray-300 mb-4">Supported formats: MP4, AVI, MOV, WebM</p>
+                            <p class="text-sm text-gray-400 mb-4">Maximum file size: 1GB</p>
+                            <a href={{url_for('validate')}} class="inline-block bg-deepfake-primary hover:bg-deepfake-secondary text-white px-8 py-3 rounded-lg transition">
+                                <i class="fas fa-upload mr-2"></i>Upload Video
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Threats by Category -->
-            <div class="bg-gray-800/70 p-6 rounded-lg shadow-xl animate-fade-in">
-                <h3 class="text-2xl font-semibold mb-4 text-red-400">
-                    <i class="fas fa-shield-alt mr-2"></i>Threat Categories
-                </h3>
-                <canvas id="threatCategoriesChart"></canvas>
+        <!-- Summary Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+            <div class="bg-gray-800/70 p-6 rounded-lg text-center animate-slide-up">
+                <i class="fas fa-video text-4xl mb-3 text-deepfake-secondary"></i>
+                <h3 class="text-xl mb-2">Total Videos Analyzed</h3>
+                <p class="text-3xl font-bold text-white" id="totalVideos">12,483</p>
+            </div>
+            <div class="bg-gray-800/70 p-6 rounded-lg text-center animate-slide-up">
+                <i class="fas fa-exclamation-triangle text-4xl mb-3 text-red-500"></i>
+                <h3 class="text-xl mb-2">Detected Deepfakes</h3>
+                <p class="text-3xl font-bold text-red-400" id="deepfakeCount">2,814</p>
+            </div>
+            <div class="bg-gray-800/70 p-6 rounded-lg text-center animate-slide-up">
+                <i class="fas fa-check-circle text-4xl mb-3 text-green-500"></i>
+                <h3 class="text-xl mb-2">Authenticity Rate</h3>
+                <p class="text-3xl font-bold text-green-400" id="authenticityRate">77.5%</p>
+            </div>
+            <div class="bg-gray-800/70 p-6 rounded-lg text-center animate-slide-up">
+                <i class="fas fa-clock text-4xl mb-3 text-yellow-500"></i>
+                <h3 class="text-xl mb-2">Avg. Detection Time</h3>
+                <p class="text-3xl font-bold text-yellow-400">3.8 sec</p>
+            </div>
+        </div>
+
+        <!-- Main Charts -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                <h3 class="text-2xl mb-4 text-center">Detection Accuracy Over Time</h3>
+                <canvas id="detectionRatesChart" height="300"></canvas>
+            </div>
+            <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                <h3 class="text-2xl mb-4 text-center">Deepfake Categories</h3>
+                <canvas id="threatCategoriesChart" height="300"></canvas>
             </div>
         </div>
     </section>
 
-    <!-- FAQs Section -->
+    <!-- FAQ Section -->
     <section id="faqs" class="container mx-auto px-4 py-16">
-        <h2 class="text-4xl font-bold mb-12 text-center text-blue-400 animate-fade-in">
+        <h2 class="text-4xl font-bold mb-12 text-center text-deepfake-primary animate-fade-in">
             <i class="fas fa-question-circle mr-3"></i>Frequently Asked Questions
         </h2>
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-gray-800/70 p-6 rounded-lg animate-slide-up">
-                <h3 class="text-2xl mb-4 text-green-400"><i class="fas fa-info-circle mr-2"></i>What is a Deepfake?</h3>
-                <p class="text-gray-300">A deepfake is an AI-generated video or audio recording that realistically
-                    replaces someone's likeness or voice with another person's.</p>
+
+        <div class="max-w-4xl mx-auto">
+            <div class="space-y-4">
+                <!-- What is Deepfake? -->
+                <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2 text-deepfake-primary">
+                        <i class="fas fa-info-circle mr-2"></i>What is a Deepfake?
+                    </h3>
+                    <p class="text-gray-300">A deepfake is an AI-generated video or audio recording that realistically replaces someone's likeness or voice with another person's. These sophisticated manipulations can be used to create convincing fake content that appears authentic.</p>
             </div>
-            <div class="bg-gray-800/70 p-6 rounded-lg animate-slide-up">
-                <h3 class="text-2xl mb-4 text-blue-400"><i class="fas fa-cogs mr-2"></i>How Does Detection Work?</h3>
-                <p class="text-gray-300">Our AI analyzes microscopic visual and audio inconsistencies that human eyes
-                    can't detect, identifying manipulated content.</p>
+
+                <!-- How does detection work? -->
+                <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2 text-deepfake-primary">
+                        <i class="fas fa-cogs mr-2"></i>How does the detection system work?
+                    </h3>
+                    <p class="text-gray-300">Our system uses advanced AI algorithms to analyze various aspects of the video:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-300">
+                        <li>Facial movements and expressions</li>
+                        <li>Audio-visual synchronization</li>
+                        <li>Micro-expressions and blinking patterns</li>
+                        <li>Video compression artifacts</li>
+                        <li>Metadata analysis</li>
+                    </ul>
             </div>
-            <div class="bg-gray-800/70 p-6 rounded-lg animate-slide-up">
-                <h3 class="text-2xl mb-4 text-red-400"><i class="fas fa-lock mr-2"></i>Is My Data Safe?</h3>
-                <p class="text-gray-300">We use end-to-end encryption and strict privacy protocols to ensure your
-                    uploaded videos remain confidential.</p>
+
+                <!-- Is my data safe? -->
+                <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2 text-deepfake-primary">
+                        <i class="fas fa-lock mr-2"></i>Is my data safe and secure?
+                    </h3>
+                    <p class="text-gray-300">Yes, we take data security very seriously:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-300">
+                        <li>End-to-end encryption for all uploaded content</li>
+                        <li>Secure cloud storage with regular backups</li>
+                        <li>Strict access controls and authentication</li>
+                        <li>Compliance with international data protection regulations</li>
+                        <li>Automatic deletion of files after analysis</li>
+                    </ul>
             </div>
-            <div class="bg-gray-800/70 p-6 rounded-lg animate-slide-up">
-                <h3 class="text-2xl mb-4 text-purple-400"><i class="fas fa-film mr-2"></i>What Video Formats Are
-                    Supported?</h3>
-                <p class="text-gray-300">We support MP4, AVI, MOV, and WebM formats with a maximum file size of 1GB.</p>
+
+                <!-- Supported formats -->
+                <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2 text-deepfake-primary">
+                        <i class="fas fa-film mr-2"></i>What video formats are supported?
+                    </h3>
+                    <p class="text-gray-300">We support the following video formats:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-300">
+                        <li>MP4 (H.264, H.265)</li>
+                        <li>AVI</li>
+                        <li>MOV</li>
+                        <li>WebM</li>
+                    </ul>
+                    <p class="mt-2 text-gray-300">Maximum file size: 1GB</p>
+                </div>
+
+                <!-- How long does analysis take? -->
+                <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2 text-deepfake-primary">
+                        <i class="fas fa-clock mr-2"></i>How long does the analysis take?
+                    </h3>
+                    <p class="text-gray-300">Analysis time depends on several factors:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-300">
+                        <li>Video length (typically 1-2 minutes per minute of video)</li>
+                        <li>Video quality and resolution</li>
+                        <li>Current server load</li>
+                    </ul>
+                    <p class="mt-2 text-gray-300">You'll receive an email notification when the analysis is complete.</p>
+                </div>
+
+                <!-- Accuracy of detection -->
+                <div class="bg-gray-800/50 p-6 rounded-lg animate-fade-in">
+                    <h3 class="text-xl font-bold mb-2 text-deepfake-primary">
+                        <i class="fas fa-chart-line mr-2"></i>How accurate is the detection system?
+                    </h3>
+                    <p class="text-gray-300">Our system has demonstrated high accuracy rates:</p>
+                    <ul class="list-disc pl-5 mt-2 space-y-1 text-gray-300">
+                        <li>98% accuracy for visual deepfakes</li>
+                        <li>96% accuracy for audio deepfakes</li>
+                        <li>94% accuracy for behavioral analysis</li>
+                        <li>92% accuracy for metadata analysis</li>
+                    </ul>
+                    <p class="mt-2 text-gray-300">We continuously improve our algorithms through machine learning and regular updates.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="bg-black/50 py-12">
-        <div class="container mx-auto grid md:grid-cols-3 gap-8 px-4">
-            <div>
-                <h3 class="text-2xl font-bold mb-4 text-blue-400">Contact Us</h3>
-                <p class="text-gray-300">Email: support@deepfakedetection.com</p>
-                <p class="text-gray-300">Phone: +1 (555) 123-4567</p>
-                <p class="text-gray-300">Address: 123 AI Street, Tech City, TC 12345</p>
+    <!-- Detailed Analysis Modal -->
+    <div class="modal fade" id="detailedAnalysisModal" tabindex="-1" aria-labelledby="detailedAnalysisModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+            <div class="modal-content bg-gray-900 text-white">
+                <div class="modal-header border-gray-700">
+                    <h1 class="modal-title fs-4" id="detailedAnalysisModalLabel">
+                        <i class="fas fa-chart-pie me-2 text-blue-400"></i>Detailed Deepfake Analysis
+                    </h1>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div>
-                <h3 class="text-2xl font-bold mb-4 text-green-400">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="#home" class="text-gray-300 hover:text-deepfake-secondary">Home</a></li>
-                    <li><a href="#dashboard" class="text-gray-300 hover:text-deepfake-secondary">Dashboard</a></li>
-                    <li><a href="#faqs" class="text-gray-300 hover:text-deepfake-secondary">FAQs</a></li>
+                <div class="modal-body">
+                    <!-- Tabs Navigation -->
+                    <ul class="nav nav-tabs mb-4" id="analysisTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active text-white" id="global-tab" data-bs-toggle="tab" data-bs-target="#global-tab-pane" type="button" role="tab" aria-controls="global-tab-pane" aria-selected="true">Global Trends</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link text-white" id="technical-tab" data-bs-toggle="tab" data-bs-target="#technical-tab-pane" type="button" role="tab" aria-controls="technical-tab-pane" aria-selected="false">Technical Analysis</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link text-white" id="targets-tab" data-bs-toggle="tab" data-bs-target="#targets-tab-pane" type="button" role="tab" aria-controls="targets-tab-pane" aria-selected="false">Target Sectors</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link text-white" id="prevention-tab" data-bs-toggle="tab" data-bs-target="#prevention-tab-pane" type="button" role="tab" aria-controls="prevention-tab-pane" aria-selected="false">Prevention</button>
+                        </li>
+                </ul>
+                    
+                    <!-- Tab Content -->
+                    <div class="tab-content" id="analysisTabContent">
+                        <!-- Global Trends Tab -->
+                        <div class="tab-pane fade show active" id="global-tab-pane" role="tabpanel" aria-labelledby="global-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-blue-400">Global Deepfake Incidents by Region</h5>
+                                            <canvas id="globalIncidentsChart" height="300"></canvas>
+            </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-blue-400">Year-over-Year Growth</h5>
+                                            <canvas id="yearOverYearChart" height="300"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-blue-400">Criminal Activity by Deepfake Type</h5>
+                                            <div class="row align-items-center">
+                                                <div class="col-md-8">
+                                                    <canvas id="crimeTypeChart" height="250"></canvas>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="me-2 rounded-circle bg-red-500" style="width: 14px; height: 14px;"></div>
+                                                        <span class="text-sm">Financial Fraud (42%)</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="me-2 rounded-circle bg-blue-500" style="width: 14px; height: 14px;"></div>
+                                                        <span class="text-sm">Political Manipulation (27%)</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="me-2 rounded-circle bg-green-500" style="width: 14px; height: 14px;"></div>
+                                                        <span class="text-sm">Identity Theft (18%)</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center mb-3">
+                                                        <div class="me-2 rounded-circle bg-purple-500" style="width: 14px; height: 14px;"></div>
+                                                        <span class="text-sm">Blackmail/Extortion (8%)</span>
+                                                    </div>
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="me-2 rounded-circle bg-yellow-500" style="width: 14px; height: 14px;"></div>
+                                                        <span class="text-sm">Other (5%)</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-warning" role="alert">
+                                <i class="fas fa-exclamation-triangle me-2"></i>
+                                <strong>Critical Alert:</strong> Deepfake incidents increased by 287% in the last 12 months, with financial sector being the primary target.
+                            </div>
+                        </div>
+                        
+                        <!-- Technical Analysis Tab -->
+                        <div class="tab-pane fade" id="technical-tab-pane" role="tabpanel" aria-labelledby="technical-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-green-400">Deepfake Detection Methods Accuracy</h5>
+                                            <canvas id="detectionMethodsChart" height="300"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-green-400">AI Model Performance</h5>
+                                            <div class="table-responsive">
+                                                <table class="table table-dark table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Detection Model</th>
+                                                            <th>Accuracy</th>
+                                                            <th>False Positives</th>
+                                                            <th>Processing Time</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>DeepGuard v4.2</td>
+                                                            <td>98.7%</td>
+                                                            <td>0.8%</td>
+                                                            <td>2.3s</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>FakeSpotter Pro</td>
+                                                            <td>96.4%</td>
+                                                            <td>1.2%</td>
+                                                            <td>1.9s</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>AudioVerify</td>
+                                                            <td>94.8%</td>
+                                                            <td>2.1%</td>
+                                                            <td>3.5s</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>VisualTruth AI</td>
+                                                            <td>93.2%</td>
+                                                            <td>1.7%</td>
+                                                            <td>4.1s</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-green-400">DeepFake Creation vs. Detection Technology</h5>
+                                            <div class="img-container text-center my-3">
+                                                <img src="/api/placeholder/800/400" alt="Deepfake Technology Timeline" class="img-fluid rounded">
+                                            </div>
+                                            <p class="text-white-50 mt-3">
+                                                The chart above illustrates the technological race between deepfake creation (red) and detection capabilities (blue). 
+                                                Note the critical periods where creation technology temporarily outpaced detection capabilities, leading to significant 
+                                                spikes in successful deepfake attacks.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Target Sectors Tab -->
+                        <div class="tab-pane fade" id="targets-tab-pane" role="tabpanel" aria-labelledby="targets-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-md-7 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-purple-400">Most Targeted Industry Sectors</h5>
+                                            <canvas id="targetedSectorsChart" height="350"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-purple-400">High-Profile Targets</h5>
+                                            <div class="list-group list-group-flush bg-transparent">
+                                                <div class="list-group-item bg-transparent border-bottom border-gray-700 text-white">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-landmark me-2"></i> Banking & Finance</span>
+                                                        <span class="badge bg-danger rounded-pill">Very High Risk</span>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item bg-transparent border-bottom border-gray-700 text-white">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-gavel me-2"></i> Government Officials</span>
+                                                        <span class="badge bg-danger rounded-pill">Very High Risk</span>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item bg-transparent border-bottom border-gray-700 text-white">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-building me-2"></i> Corporate Executives</span>
+                                                        <span class="badge bg-warning text-dark rounded-pill">High Risk</span>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item bg-transparent border-bottom border-gray-700 text-white">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-film me-2"></i> Public Figures</span>
+                                                        <span class="badge bg-warning text-dark rounded-pill">High Risk</span>
+                                                    </div>
+                                                </div>
+                                                <div class="list-group-item bg-transparent text-white">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <span><i class="fas fa-shield-alt me-2"></i> Military & Defense</span>
+                                                        <span class="badge bg-warning text-dark rounded-pill">High Risk</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-purple-400">Case Study: Financial Sector Attacks</h5>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <img src="/api/placeholder/400/300" alt="Financial Attack Vector" class="img-fluid rounded mb-3">
+                                                    <h6 class="text-blue-300">Attack Vector Analysis</h6>
+                                                    <p class="text-white-50 small">
+                                                        In 72% of financial sector deepfake attacks, criminals used voice cloning technology to impersonate
+                                                        executives during supposed "emergency" calls to financial controllers, requesting urgent wire transfers.
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <img src="/api/placeholder/400/300" alt="Detection Challenges" class="img-fluid rounded mb-3">
+                                                    <h6 class="text-blue-300">Detection Challenges</h6>
+                                                    <p class="text-white-50 small">
+                                                        Financial institutions face unique challenges due to the time-sensitive nature of transactions,
+                                                        giving security teams minimal time to verify authenticity before approvals are needed.
+                                                    </p>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <img src="/api/placeholder/400/300" alt="Prevention Strategies" class="img-fluid rounded mb-3">
+                                                    <h6 class="text-blue-300">Prevention Strategies</h6>
+                                                    <p class="text-white-50 small">
+                                                        Leading financial institutions now implement multi-factor authentication including biometric verification
+                                                        and pre-established code words that would be difficult for AI to replicate or obtain.
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Prevention Tab -->
+                        <div class="tab-pane fade" id="prevention-tab-pane" role="tabpanel" aria-labelledby="prevention-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-md-6 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-yellow-400">Protection Measures Effectiveness</h5>
+                                            <canvas id="protectionMeasuresChart" height="300"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-4">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-yellow-400">Risk Reduction by Implementation</h5>
+                                            <canvas id="riskReductionChart" height="300"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="card bg-gray-800 border-0">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-yellow-400">Recommended Protection Framework</h5>
+                                            <div class="row mt-4">
+                                                <div class="col-md-3 mb-4">
+                                                    <div class="text-center">
+                                                        <div class="rounded-circle bg-blue-900 p-4 d-inline-flex mb-3">
+                                                            <i class="fas fa-user-shield fa-2x text-blue-300"></i>
+                                                        </div>
+                                                        <h6 class="text-blue-300">Detection Technology</h6>
+                                                        <ul class="list-unstyled text-start small text-white-50">
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Implement AI verification systems</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Audio fingerprinting</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Visual inconsistency detection</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Real-time video analysis</li>
                 </ul>
             </div>
-            <div>
-                <h3 class="text-2xl font-bold mb-4 text-red-400">Legal</h3>
-                <ul class="space-y-2">
-                    <li><a href="#" class="text-gray-300 hover:text-deepfake-secondary">Privacy Policy</a></li>
-                    <li><a href="#" class="text-gray-300 hover:text-deepfake-secondary">Terms of Service</a></li>
-                    <li><a href="#" class="text-gray-300 hover:text-deepfake-secondary">Cookie Policy</a></li>
-                </ul>
+        </div>
+                                                <div class="col-md-3 mb-4">
+                                                    <div class="text-center">
+                                                        <div class="rounded-circle bg-green-900 p-4 d-inline-flex mb-3">
+                                                            <i class="fas fa-users-cog fa-2x text-green-300"></i>
+        </div>
+                                                        <h6 class="text-green-300">Policy & Procedures</h6>
+                                                        <ul class="list-unstyled text-start small text-white-50">
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Authentication protocols</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Verification workflows</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Emergency response plans</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Multi-person authorization</li>
+                                                        </ul>
+        </div>
+                                                </div>
+                                                <div class="col-md-3 mb-4">
+                                                    <div class="text-center">
+                                                        <div class="rounded-circle bg-purple-900 p-4 d-inline-flex mb-3">
+                                                            <i class="fas fa-graduation-cap fa-2x text-purple-300"></i>
+                                                        </div>
+                                                        <h6 class="text-purple-300">Training & Awareness</h6>
+                                                        <ul class="list-unstyled text-start small text-white-50">
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Staff education programs</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Regular simulations</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Recognition techniques</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Reporting procedures</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3 mb-4">
+                                                    <div class="text-center">
+                                                        <div class="rounded-circle bg-red-900 p-4 d-inline-flex mb-3">
+                                                            <i class="fas fa-shield-virus fa-2x text-red-300"></i>
+                                                        </div>
+                                                        <h6 class="text-red-300">Technical Safeguards</h6>
+                                                        <ul class="list-unstyled text-start small text-white-50">
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Digital watermarking</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Content signatures</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Blockchain verification</li>
+                                                            <li><i class="fas fa-check text-green-400 me-2"></i>Encrypted authentication</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-gray-700">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">
+                        <i class="fas fa-download me-2"></i>Download Full Report
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="text-center mt-8 text-gray-400">
-            © 2024 Deepfake Detection. All rights reserved.
-        </div>
-        <div class="flex justify-center space-x-4 mt-4">
-            <a href="#" class="text-gray-400 hover:text-deepfake-secondary"><i class="fab fa-twitter text-2xl"></i></a>
-            <a href="#" class="text-gray-400 hover:text-deepfake-secondary"><i class="fab fa-facebook text-2xl"></i></a>
-            <a href="#" class="text-gray-400 hover:text-deepfake-secondary"><i class="fab fa-linkedin text-2xl"></i></a>
-        </div>
-    </footer>
+    </div>
 
     <!-- Chart Initialization Script -->
     <script>
-        // Detection Rates Chart
-        const ctx1 = document.getElementById('detectionRatesChart').getContext('2d');
-        new Chart(ctx1, {
-            type: 'line',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Detection Accuracy',
-                    data: [65, 59, 80, 81, 56, 85],
-                    borderColor: 'rgb(75, 192, 192)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
+        let detectionRatesChart, threatCategoriesChart;
+
+        function initializeCharts() {
+            // Main Dashboard Charts
+            const ctx1 = document.getElementById('detectionRatesChart').getContext('2d');
+            detectionRatesChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Detection Accuracy',
+                        data: [92.4, 93.8, 95.2, 94.7, 96.5, 97.8],
+                        borderColor: 'rgb(147, 51, 234)',
+                        backgroundColor: 'rgba(147, 51, 234, 0.2)',
+                        tension: 0.4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(255, 255, 255, 0.1)'
+                            },
+                            ticks: {
+                                color: '#fff'
+                            }
+                        }
                     }
                 }
+            });
+
+            // Threat Categories Chart
+            const ctx2 = document.getElementById('threatCategoriesChart').getContext('2d');
+            threatCategoriesChart = new Chart(ctx2, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Identity Theft', 'Misinformation', 'Political', 'Entertainment', 'Financial Fraud'],
+                    datasets: [{
+                        data: [28, 35, 15, 7, 15],
+                        backgroundColor: [
+                            'rgba(236, 72, 153, 0.8)',
+                            'rgba(14, 165, 233, 0.8)',
+                            'rgba(168, 85, 247, 0.8)',
+                            'rgba(34, 211, 238, 0.8)',
+                            'rgba(249, 115, 22, 0.8)'
+                        ],
+                        borderColor: 'rgba(17, 24, 39, 0.8)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                color: '#fff',
+                                padding: 15
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function fetchAndUpdateChartData() {
+            // In a real implementation, this would be an API call.
+            // For demo purposes, we'll use static data
+            const newData = {
+                detectionRates: [92.4, 93.8, 95.2, 94.7, 96.5, 97.8],
+                threatCategories: [28, 35, 15, 7, 15], // Identity Theft, Misinfo, Political, Entertainment, Financial
+                totalVideos: 12483,
+                deepfakeCount: 2814,
+                authenticityRate: 77.5
+            };
+            updateCharts(newData);
+        }
+
+        function updateCharts(newData) {
+            // Update detection rates
+            if (detectionRatesChart) {
+                detectionRatesChart.data.datasets[0].data = newData.detectionRates;
+                detectionRatesChart.update();
             }
+
+            // Update threat categories
+            if (threatCategoriesChart) {
+                threatCategoriesChart.data.datasets[0].data = newData.threatCategories;
+                threatCategoriesChart.update();
+            }
+
+            // Update statistics
+            document.getElementById('totalVideos').textContent = newData.totalVideos.toLocaleString();
+            document.getElementById('deepfakeCount').textContent = newData.deepfakeCount.toLocaleString();
+            document.getElementById('authenticityRate').textContent = `${newData.authenticityRate}%`;
+        }
+
+        // Initialize charts and fetch initial data
+        document.addEventListener('DOMContentLoaded', () => {
+            initializeCharts();
+            fetchAndUpdateChartData();
         });
 
-        // Threat Categories Chart
-        const ctx2 = document.getElementById('threatCategoriesChart').getContext('2d');
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ['Identity Theft', 'Misinformation', 'Political Manipulation', 'Entertainment'],
-                datasets: [{
-                    data: [30, 45, 15, 10],
-                    backgroundColor: [
-                        'rgb(255, 99, 132)',
-                        'rgb(54, 162, 235)',
-                        'rgb(255, 205, 86)',
-                        'rgb(75, 192, 192)'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true
-            }
-        });
+        // Set up periodic updates (every 30 seconds)
+        setInterval(fetchAndUpdateChartData, 30000);
     </script>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-
-
-
-
-<div
-  class="modal fade"
-  id="modal123"
-  tabindex="-1"
-  aria-labelledby="exampleModalLabel"
-  aria-hidden="true"
->
-  <div
-    class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
-  >
-    <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Campaign Details</h1>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+    <!-- Footer -->
+    <footer class="bg-gray-900/80 backdrop-blur-md mt-16 border-t border-gray-800">
+        <div class="container mx-auto px-4 py-12">
+            <!-- Main Footer Content -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <!-- Company Info -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="/static/logo.png" alt="Logo" class="h-10 w-10 rounded-full">
+                        <h3 class="text-xl font-bold text-deepfake-primary">Deepfake Detection</h3>
       </div>
-      <div class="modal-body">
+                    <p class="text-gray-400">Leading the way in AI-powered deepfake detection and digital content verification.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-deepfake-primary transition">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-deepfake-primary transition">
+                            <i class="fab fa-linkedin text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-deepfake-primary transition">
+                            <i class="fab fa-github text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-deepfake-primary transition">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-          Close
-        </button>
       </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-deepfake-primary transition">Home</a></li>
+                        <li><a href="#dashboard" class="text-gray-400 hover:text-deepfake-primary transition">Dashboard</a></li>
+                        <li><a href="#faqs" class="text-gray-400 hover:text-deepfake-primary transition">FAQs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-deepfake-primary transition">API Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Case Studies</a></li>
+                    </ul>
     </div>
+
+                <!-- Resources -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Resources</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Research Papers</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Blog</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Support Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Security</a></li>
+                    </ul>
   </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-lg font-semibold text-white mb-4">Contact Us</h4>
+                    <ul class="space-y-2">
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-envelope mr-2 text-deepfake-primary"></i>
+                            support@deepfakedetection.ai
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-phone mr-2 text-deepfake-primary"></i>
+                            +1 (555) 123-4567
+                        </li>
+                        <li class="flex items-center text-gray-400">
+                            <i class="fas fa-map-marker-alt mr-2 text-deepfake-primary"></i>
+                            123 AI Street, Tech Valley, CA 94025
+                        </li>
+                    </ul>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+            </div>
 
+            <!-- Newsletter -->
+            <div class="border-t border-gray-800 pt-8 pb-4">
+                <div class="max-w-xl">
+                    <h4 class="text-lg font-semibold text-white mb-4">Stay Updated</h4>
+                    <p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates on deepfake detection technology.</p>
+                    <form class="flex gap-2">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-deepfake-primary">
+                        <button type="submit" class="px-6 py-2 bg-deepfake-primary hover:bg-deepfake-secondary text-white rounded-lg transition">
+                            Subscribe
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Bottom Footer -->
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <div class="text-gray-400 text-sm mb-4 md:mb-0">
+                    © 2024 Deepfake Detection. All rights reserved.
+                </div>
+                <div class="flex space-x-6 text-sm">
+                    <a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Terms of Service</a>
+                    <a href="#" class="text-gray-400 hover:text-deepfake-primary transition">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </footer>
 </body>
-
 </html>

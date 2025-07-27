@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Verification Certificate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center p-4">
+        <div class="bg-white rounded-lg shadow-xl w-full max-w-4xl p-8">
+            <!-- Certificate Header -->
+            <div class="text-center border-b border-gray-200 pb-8">
+                <div class="flex justify-center mb-4">
+                    <img src="/static/logo.png" alt="Logo" class="h-16 w-16">
+                </div>
+                <h1 class="text-3xl font-bold text-gray-800">Video Verification Certificate</h1>
+                <p class="text-gray-600 mt-2">Official Video Analysis Results</p>
+            </div>
+
+            <!-- Verification Status -->
+            <div class="my-8 text-center">
+                <h2 class="text-4xl font-bold {{ cert.status_class }}">{{ cert.status }}</h2>
+                <div class="mt-4 text-2xl font-semibold text-gray-700">
+                    Confidence Score: {{ cert.confidence }}%
+                </div>
+            </div>
+
+            <!-- Certificate Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
+                <!-- Video Information -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Video Information</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">File Name:</span>
+                            <span class="font-medium text-gray-800">{{ cert.video_name }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Category:</span>
+                            <span class="font-medium text-gray-800">{{ cert.category }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Verification ID:</span>
+                            <span class="font-medium text-gray-800">{{ cert.verification_id }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Information -->
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-gray-800 border-b pb-2">Analysis Details</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Analysis Date:</span>
+                            <span class="font-medium text-gray-800">{{ cert.analysis_date }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Submitted By:</span>
+                            <span class="font-medium text-gray-800">{{ cert.user_email }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Model Version:</span>
+                            <span class="font-medium text-gray-800">DeepGuard v4.2</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Notes -->
+            <div class="mt-8 p-4 bg-gray-50 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800 mb-4">Verification Notes</h3>
+                <p class="text-gray-600">
+                    {% if cert.status == "AUTHENTIC VIDEO" %}
+                    This video has been analyzed by our advanced AI system and shows no signs of manipulation or deepfake characteristics. The content appears to be authentic with high confidence.
+                    {% elif cert.status == "DEEPFAKE DETECTED" %}
+                    Our analysis has detected significant indicators of manipulation in this video. The content shows characteristics consistent with deepfake technology and should not be considered authentic.
+                    {% else %}
+                    The analysis results for this video are inconclusive. While some anomalies were detected, they do not provide sufficient evidence to make a definitive determination about the content's authenticity.
+                    {% endif %}
+                </p>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 pt-8 border-t border-gray-200 text-center">
+                <p class="text-gray-500 text-sm">This certificate was generated by the Deepfake Detection System</p>
+                <p class="text-gray-500 text-sm mt-1">To verify this certificate, please visit our website and enter the Verification ID</p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-8 flex justify-center space-x-4">
+                <button onclick="window.print()" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    <i class="fas fa-print mr-2"></i>Print Certificate
+                </button>
+                <a href="{{ url_for('profile') }}" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors">
+                    <i class="fas fa-arrow-left mr-2"></i>Back to Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
