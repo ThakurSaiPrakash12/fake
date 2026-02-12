@@ -5,7 +5,8 @@ from torchvision import models
 class Model(nn.Module):
     def __init__(self, num_classes, latent_dim=2048, lstm_layers=1, hidden_dim=2048, bidirectional=False):
         super(Model, self).__init__()
-        model = models.resnext50_32x4d(pretrained=True)
+        # Don't download pretrained weights - we load from checkpoint
+        model = models.resnext50_32x4d(pretrained=False)
         self.model = nn.Sequential(*list(model.children())[:-2])
         self.lstm = nn.LSTM(latent_dim, hidden_dim, lstm_layers, bidirectional)
         self.dp = nn.Dropout(0.4)

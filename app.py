@@ -45,8 +45,8 @@ class Video(db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Model Setup
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+# Model Setup - Force CPU for production deployment
+device = torch.device('cpu')
 model = Model(num_classes=2)
 model_path = os.path.join('models', 'Model 97 Accuracy 100 Frames FF Data.pt')
 
@@ -55,8 +55,6 @@ try:
     model.load_state_dict(checkpoint, strict=True)
     model.to(device)
     model.eval()
-    if device.type == 'cuda':
-        model.half()  # FP16 for faster GPU inference
     print(f"Model loaded on {device}")
 except Exception as e:
     print(f"Error loading model: {e}")
@@ -93,8 +91,6 @@ def predict_video(video_path, sequence_length=20):
             return False, 0.0
         
         video_tensor = torch.stack(frames).unsqueeze(0).to(device)
-        if device.type == 'cuda':
-            video_tensor = video_tensor.half()
         
         with torch.no_grad():
             outputs = model(video_tensor)
@@ -105,8 +101,6 @@ def predict_video(video_path, sequence_length=20):
         
         # Cleanup
         del video_tensor, outputs, probabilities
-        if device.type == 'cuda':
-            torch.cuda.empty_cache()
         
         return is_deepfake, confidence
     except Exception as e:

@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+.gitattributes
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# Database files (will be created in container)
+*.db
+instance/
+database.db
+
+# Uploaded videos (will be uploaded at runtime)
+uploaded_videos/
+
+# Development files
+.python-version
+init_db.py
+tempCodeRunnerFile.py
+
+# Logs
+*.log
+app.log
+
+# Documentation
+README.md
+docs/
+
+# Tests
+tests/
+test_*.py
+*_test.py
