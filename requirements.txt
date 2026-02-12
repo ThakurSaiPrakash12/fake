@@ -1,5 +1,6 @@
-﻿# Production Runtime Dependencies
-# Optimized for CPU-only inference, minimal Docker image size
+﻿# Production Runtime Dependencies - CPU Only
+# NOTE: torch and torchvision installed separately in Dockerfile with CPU index
+# Do NOT add them here - they're installed via https://download.pytorch.org/whl/cpu
 
 # Core Flask (Web Framework)
 Flask==3.0.2
@@ -11,12 +12,6 @@ Flask-SQLAlchemy==3.1.1
 Flask-Login==0.6.3
 python-dotenv==1.0.0
 
-# Deep Learning - CPU Only
-# Install with: pip install torch torchvision --index-url https://download.pytorch.org/whl/cpu
-# Using standard pip will auto-select CPU wheels on Linux
-torch==2.2.0
-torchvision==0.17.0
-
 # Image/Video Processing (headless = no GUI dependencies)
 opencv-python-headless==4.9.0.80
 Pillow==10.2.0
@@ -24,6 +19,4 @@ Pillow==10.2.0
 # Database
 SQLAlchemy==2.0.25
 
-# Note: This configuration targets <1.5GB Docker image
-# PyTorch CPU wheels: ~750MB, OpenCV: ~90MB, other deps: ~150MB
-# Total: ~1GB + 216MB model + base image = ~1.4GB final size
+# NumPy (dependency for torch/torchvision, installed separately)

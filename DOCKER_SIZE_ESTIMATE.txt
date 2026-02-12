@@ -1,0 +1,25 @@
+﻿# Expected Docker Image Size Calculation
+
+## Layer Breakdown:
+1. python:3.12-slim base:        ~150 MB
+2. System libs (libgomp1, glib): ~15 MB
+3. PyTorch CPU (2.2.0):          ~190 MB (CPU-only wheel)
+4. TorchVision CPU (0.17.0):     ~15 MB (CPU-only wheel)
+5. OpenCV-headless:              ~90 MB
+6. Flask + extensions:           ~25 MB
+7. Other deps (Pillow, etc):     ~15 MB
+8. Application code:             ~5 MB
+9. Model checkpoint:             ~216 MB
+
+## Total Estimated Size:
+Uncompressed: ~721 MB
+Compressed:   ~550 MB (typical 25-30% compression)
+
+## Optimizations Applied:
+- Multi-stage build (removed build tools from final image)
+- CPU-only PyTorch via explicit index URL
+- Minimal system dependencies (removed X11, GL libs)
+- opencv-python-headless (no GUI dependencies)
+- Excluded venv, __pycache__, uploaded_videos, databases
+
+## Result: ~550 MB compressed << 2000 MB limit 
