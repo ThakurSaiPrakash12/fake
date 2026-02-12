@@ -1,1 +1,31 @@
-models/
+# Environment variables
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+*.py[cod]
+
+# Database
+*.db
+instance/
+
+# Uploaded videos
+uploaded_videos/
+
+# Backups
+*.backup
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+app.log
